@@ -36,9 +36,9 @@ namespace Sitecore.Ship.Infrastructure.Update
                 var installationInfo = GetInstallationInfo(packagePath);
                 string historyPath = null;
                 List<ContingencyEntry> entries = null;
+                var logger = Sitecore.Diagnostics.LoggerFactory.GetLogger(this);
                 try
                 {
-                    var logger = Sitecore.Diagnostics.LoggerFactory.GetLogger(this);  // TODO abstractions
                     entries = UpdateHelper.Install(installationInfo, logger, out historyPath);
                     return _manifestRepository.GetManifest(packagePath);
                 }
@@ -55,7 +55,8 @@ namespace Sitecore.Ship.Infrastructure.Update
                         Sitecore.Configuration.Settings.Indexing.Enabled = true;
                     }
 
-                    UpdateHelper.SaveInstallationMessages(entries, historyPath);
+                    // TODO: this has been removed from Sitecore.Update, rather than being marked obsolete.
+                    //UpdateHelper.SaveInstallationMessages(entries, historyPath);
                 }
             }
         }
