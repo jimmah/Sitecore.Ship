@@ -52,7 +52,7 @@ namespace Sitecore.Ship.Infrastructure.Update.InstallComitter
         private IEnumerable<FileInfo> GetFilesToCommit(string path)
         {
             if (Directory.Exists(path))
-                return new DirectoryInfo(path).EnumerateFiles(_pattern);
+                return new DirectoryInfo(path).EnumerateFiles(_pattern, SearchOption.AllDirectories);
 
             Log.Warn(string.Format("Cannot commit config files. Path {0} does not exist.", path), this);
             return Enumerable.Empty<FileInfo>();
