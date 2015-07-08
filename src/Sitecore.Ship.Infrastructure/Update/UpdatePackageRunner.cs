@@ -7,6 +7,7 @@ using Sitecore.SecurityModel;
 using Sitecore.Ship.Core;
 using Sitecore.Ship.Core.Contracts;
 using Sitecore.Ship.Core.Domain;
+using Sitecore.Ship.Infrastructure.Update.InstallComitter;
 using Sitecore.Update;
 using Sitecore.Update.Installer;
 using Sitecore.Update.Installer.Exceptions;
@@ -59,6 +60,7 @@ namespace Sitecore.Ship.Infrastructure.Update
                         using (new SecurityDisabler())
                         {
                             diffInstaller.ExecutePostInstallationInstructions(packagePath, historyPath, installationInfo.Mode, metadata, logger, ref entries);
+                            new ConfigFilesCommitter().Process(FileUtil.MapPath("/"));
                         }
                     }
                     else
@@ -122,6 +124,7 @@ namespace Sitecore.Ship.Infrastructure.Update
                 Action = UpgradeAction.Upgrade,
                 Path = packagePath
             };
+
             if (string.IsNullOrEmpty(info.Path))
             {
                 throw new Exception("Package is not selected.");
