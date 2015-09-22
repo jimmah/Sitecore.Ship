@@ -36,7 +36,7 @@ namespace Sitecore.Ship.AspNet
         {
             if (!_authoriser.IsAllowed())
             {
-                context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+                context.Response.StatusCode = (int) HttpStatusCode.Forbidden;
             }
 
             context.Items.Add(StartTime, DateTime.UtcNow);
